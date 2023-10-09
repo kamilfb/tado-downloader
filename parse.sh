@@ -1,5 +1,5 @@
 # slightly malformed input data
-input_start=2023-03-30
+input_start=2022-02-21
 input_end=2023-06-1
 #input_end=2023-3-22
 
@@ -15,8 +15,9 @@ while [ "$d" != "$enddate" ]; do
   echo $d
 
   jq '.weather.condition.dataIntervals[] | [.from, .to, .value.temperature.celsius] | @csv' data/zone$zone/$d.json >> parsed/zone$zone-weather.csv
-  jq '.callForHeat.dataIntervals[] | [.from, .to, .value] | @csv' data/zone$zone/$d.json >> parsed/zone$zone-heat.csv
+  #jq '.callForHeat.dataIntervals[] | [.from, .to, .value] | @csv' data/zone$zone/$d.json >> parsed/zone$zone-heat.csv
   jq '.measuredData.insideTemperature.dataPoints[] | [.timestamp, .value.celsius] | @csv' data/zone$zone/$d.json >> parsed/zone$zone-inside.csv
+  jq '.measuredData.humidity.dataPoints[] | [.timestamp, .value] | @csv' data/zone$zone/$d.json >> parsed/zone$zone-inside-humidity.csv
 
   d=$(date -I -d "$d + 1 day")
 
@@ -30,8 +31,9 @@ while [ "$d" != "$enddate" ]; do
   echo $d
 
   jq '.weather.condition.dataIntervals[] | [.from, .to, .value.temperature.celsius] | @csv' data/zone$zone/$d.json >> parsed/zone$zone-weather.csv
-  jq '.callForHeat.dataIntervals[] | [.from, .to, .value] | @csv' data/zone$zone/$d.json >> parsed/zone$zone-heat.csv
+  #jq '.callForHeat.dataIntervals[] | [.from, .to, .value] | @csv' data/zone$zone/$d.json >> parsed/zone$zone-heat.csv
   jq '.measuredData.insideTemperature.dataPoints[] | [.timestamp, .value.celsius] | @csv' data/zone$zone/$d.json >> parsed/zone$zone-inside.csv
+  jq '.measuredData.humidity.dataPoints[] | [.timestamp, .value] | @csv' data/zone$zone/$d.json >> parsed/zone$zone-inside-humidity.csv
 
   d=$(date -I -d "$d + 1 day")
 
