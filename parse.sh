@@ -17,6 +17,7 @@ while [ "$d" != "$enddate" ]; do
   jq -r '.weather.condition.dataIntervals[] | [.from, .to, .value.temperature.celsius] | @csv' data/zone$zone/$d.json >> parsed/zone$zone-weather.csv
   jq '.callForHeat.dataIntervals[] | [.from, .to, .value] | @csv' data/zone$zone/$d.json >> parsed/zone$zone-heat.csv
   jq '.measuredData.insideTemperature.dataPoints[] | [.timestamp, .value.celsius] | @csv' data/zone$zone/$d.json >> parsed/zone$zone-inside.csv
+  jq '.measuredData.humidity.dataPoints[] | [.timestamp, .value] | @csv' data/zone$zone/$d.json >> parsed/zone$zone-inside-humidity.csv
 
   d=$(date -I -d "$d + 1 day")
 
@@ -32,6 +33,7 @@ while [ "$d" != "$enddate" ]; do
   jq -r '.weather.condition.dataIntervals[] | [.from, .to, .value.temperature.celsius] | @csv' data/zone$zone/$d.json >> parsed/zone$zone-weather.csv
   jq '.callForHeat.dataIntervals[] | [.from, .to, .value] | @csv' data/zone$zone/$d.json >> parsed/zone$zone-heat.csv
   jq '.measuredData.insideTemperature.dataPoints[] | [.timestamp, .value.celsius] | @csv' data/zone$zone/$d.json >> parsed/zone$zone-inside.csv
+  jq '.measuredData.humidity.dataPoints[] | [.timestamp, .value] | @csv' data/zone$zone/$d.json >> parsed/zone$zone-inside-humidity.csv
 
   d=$(date -I -d "$d + 1 day")
 
