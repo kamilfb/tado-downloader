@@ -1,6 +1,6 @@
 # slightly malformed input data
-input_start=2023-03-30
-input_end=2023-06-1
+input_start=2023-3-1
+input_end=2024-4-2
 #input_end=2023-3-22
 
 # After this, startdate and enddate will be valid ISO 8601 dates,
@@ -14,7 +14,7 @@ zone="1"
 while [ "$d" != "$enddate" ]; do 
   echo $d
 
-  jq '.weather.condition.dataIntervals[] | [.from, .to, .value.temperature.celsius] | @csv' data/zone$zone/$d.json >> parsed/zone$zone-weather.csv
+  jq -r '.weather.condition.dataIntervals[] | [.from, .to, .value.temperature.celsius] | @csv' data/zone$zone/$d.json >> parsed/zone$zone-weather.csv
   jq '.callForHeat.dataIntervals[] | [.from, .to, .value] | @csv' data/zone$zone/$d.json >> parsed/zone$zone-heat.csv
   jq '.measuredData.insideTemperature.dataPoints[] | [.timestamp, .value.celsius] | @csv' data/zone$zone/$d.json >> parsed/zone$zone-inside.csv
 
@@ -29,7 +29,7 @@ zone="2"
 while [ "$d" != "$enddate" ]; do 
   echo $d
 
-  jq '.weather.condition.dataIntervals[] | [.from, .to, .value.temperature.celsius] | @csv' data/zone$zone/$d.json >> parsed/zone$zone-weather.csv
+  jq -r '.weather.condition.dataIntervals[] | [.from, .to, .value.temperature.celsius] | @csv' data/zone$zone/$d.json >> parsed/zone$zone-weather.csv
   jq '.callForHeat.dataIntervals[] | [.from, .to, .value] | @csv' data/zone$zone/$d.json >> parsed/zone$zone-heat.csv
   jq '.measuredData.insideTemperature.dataPoints[] | [.timestamp, .value.celsius] | @csv' data/zone$zone/$d.json >> parsed/zone$zone-inside.csv
 
